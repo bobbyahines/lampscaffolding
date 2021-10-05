@@ -1,0 +1,52 @@
+version: "3.7"
+services:
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bobbyahines/app:latest
+    container_name: app
+    restart: unless-stopped
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "80:80"
+    volumes:
+      - ".:/var/www/html"
+    environment:
+      - TZ="America/Los_Angeles"
+    links:
+      - db
+
+  db:
+    image: mariadb:latest
+    container_name: db
+    restart: unless-stopped
+    networks:
+      - backend
+    expose:
+      - 3306
+    environment:
+      - TZ="Etc/UTC"
+      - MYSQL_RANDOM_ROOT_PASSWORD="yes"
+      - MYSQL_USER="admin"
+      - MYSQL_PASSWORD="password"
+      - MYSQL_DATABASE="app"
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    restart: unless-stopped
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "8080:8080"
+    links:
+      - db
+
+networks:
+  frontend:
+  backend:

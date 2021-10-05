@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="english">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="author" content="Matt Salmon <matt_salmon@hotmail.com>, Bobby Hines <bobbyahines@gmail.com>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .homeGridBody {
+            width: 1fr;
+        }
+
+        .homeGrid {
+            display: grid;
+
+            grid-template-columns: 1fr;
+            grid-column-gap: 0;
+            grid-template-rows: auto;
+            grid-row-gap: 0;
+
+            grid-template-areas:
+                "homeGridBody";
+        }
+    </style>
+</head>
+<body>
+
+<div class="homeGrid">
+    <div class="column">
+        <div class="row homeGridBody">
+        {% block body %}{% endblock %}
+        </div>
+    </div>
+</div>
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>
